@@ -1,5 +1,5 @@
 {
-  "name": "firestore-privileges",
+  "name": "firebase-firestore-security-rules-example",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,28 +10,33 @@
     "@types/node": "^12.12.58",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "firebase": "^7.20.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
+    "@firebase/testing": "^0.20.11",
     "commitizen": "^4.2.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "firebase-tools": "^8.10.0",
     "prettier": "^2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,ts,tsx ."
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "emu-export": "firebase emulators:export emu-export2",
+    "emu-new": "firebase emulators:start",
+    "emu": "firebase emulators:start --import=emu-export",
+    "lint": "eslint --ext js,ts,tsx src && tsc",
+    "start-on-emu": "REACT_APP_FB_EMU=1 npm run start",
+    "start": "react-scripts start",
+    "test-on-emu": "FB_EMU=1 npm run test",
+    "test": "react-scripts test"
   },
   "browserslist": {
     "production": [
