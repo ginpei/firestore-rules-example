@@ -35,6 +35,7 @@
     "lint": "eslint --ext js,ts,tsx src && tsc",
     "start-on-emu": "REACT_APP_FB_EMU=1 npm run start",
     "start": "react-scripts start",
+    "test-with-emu": "firebase emulators:exec \"CI=1 FB_EMU=1 npm run test\"",
     "test-on-emu": "FB_EMU=1 npm run test",
     "test": "react-scripts test"
   },
