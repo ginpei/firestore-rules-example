@@ -59,6 +59,10 @@ describe("SecureNoteUser", () => {
       });
     });
 
+    afterEach(() => {
+      fs.cleanUp();
+    });
+
     describe("note owner", () => {
       describe("about somebody else", () => {
         it("can read", async () => {

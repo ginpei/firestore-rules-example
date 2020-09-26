@@ -38,6 +38,10 @@ describe("SecureNote", () => {
       });
     });
 
+    afterEach(() => {
+      fs.cleanUp();
+    });
+
     describe("user note", () => {
       it("can read", async () => {
         const ss = await fsRoot.collection("notes").doc("user-note-1").get();

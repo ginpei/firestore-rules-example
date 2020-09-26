@@ -27,6 +27,10 @@ describe("User", () => {
       });
     });
 
+    afterEach(() => {
+      fs.cleanUp();
+    });
+
     describe("current user", () => {
       it("can read", async () => {
         const ss = await fsRoot.collection("users").doc("user-1").get();
