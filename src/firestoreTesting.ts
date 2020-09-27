@@ -48,6 +48,7 @@ firebase.firestore.Timestamp = FakeTimestamp as any;
 export type FirestoreEmu = firebaseTesting.firestore.Firestore & {
   admin: firebaseTesting.firestore.Firestore;
   cleanUp: () => void;
+  projectId: string;
 };
 
 export function prepareFirestore(
@@ -56,18 +57,19 @@ export function prepareFirestore(
 ): FirestoreEmu {
   const auth = uid ? { uid } : undefined;
   const app = firebaseTesting.initializeTestApp({ projectId, auth });
-  const firestore = app.firestore() as FirestoreEmu;
+  const adminApp = firebaseTesting.initializeAdminApp({ projectId });
 
-  firestore.admin = prepareAdminFirestore(projectId);
-  firestore.cleanUp = () => cleanUpFirestore(projectId);
+  const fs = app.firestore() as FirestoreEmu;
+  fs.admin = adminApp.firestore();
+  fs.projectId = projectId;
 
-  return firestore;
+  fs.cleanUp = () => {
+    app.delete();
+    adminApp.delete();
+  };
+
+  return fs;
 }
-
-export function cleanUpFirestore(projectId = randomName()): Promise<void> {
-  return firebaseTesting.clearFirestoreData({ projectId });
-}
-
 export function prepareAdminFirestore(
   projectId = randomName()
 ): firebaseTesting.firestore.Firestore {
